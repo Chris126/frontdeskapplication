@@ -18,7 +18,7 @@ public class LoginPage extends javax.swing.JFrame {
             System.out.println("Connected");
         } catch(SQLException ex) {
             System.out.println("Could not connect");
-            
+            System.out.println(ex.getMessage());
         }
     }
 
