@@ -3,10 +3,8 @@ import javax.swing.JOptionPane;
 
 public class LoginPage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginPage
-     */
     public LoginPage() {
+        //Initialize components
         initComponents();
     }
 
@@ -102,7 +100,7 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_PasswordActionPerformed
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
-        // TODO add your handling code here:
+        //Get username and password from text fields in UI form
         String username = txt_Username.getText();
         String password = txt_Password.getText();
 
