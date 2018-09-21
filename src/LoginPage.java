@@ -1,6 +1,7 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -10,13 +11,21 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         //Initialize components
         initComponents();
-           Statement st;
+        Statement statement;
+        ResultSet results;
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
-            st = connection.createStatement();
+            statement = connection.createStatement();
+            results = statement.executeQuery("select * from adminusers");
             
+            while(results.next()){
+                System.out.println("col 1 : " + results.getString(1));
+                System.out.println("col 2 : " + results.getString(2));
+                System.out.println("col 3 : " + results.getString(3));
+            }
             System.out.println("Connected");
-        } catch(SQLException ex) {
+            connection.close();
+        } catch (SQLException ex) {
             System.out.println("Could not connect");
             System.out.println(ex.getMessage());
         }
