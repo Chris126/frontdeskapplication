@@ -1,4 +1,8 @@
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class LoginPage extends javax.swing.JFrame {
@@ -6,6 +10,16 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         //Initialize components
         initComponents();
+           Statement st;
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
+            st = connection.createStatement();
+            
+            System.out.println("Connected");
+        } catch(SQLException ex) {
+            System.out.println("Could not connect");
+            
+        }
     }
 
     /**
