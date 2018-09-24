@@ -117,7 +117,8 @@ public class LoginPage extends javax.swing.JFrame {
         //Get username and password from text fields in UI form
         String username = txt_Username.getText();
         String password = txt_Password.getText();
-
+        
+        //Check if the provided credentials match those stored in the database
         if (checkLogin(username, password)) {
             JOptionPane.showMessageDialog(this, "Login successful");
         } else {
