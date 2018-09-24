@@ -8,23 +8,14 @@ import javax.swing.JOptionPane;
 
 public class LoginPage extends javax.swing.JFrame {
 
+    Connection connection;
+
     public LoginPage() {
         //Initialize components
         initComponents();
-        Statement statement;
-        ResultSet results;
+        //Try and connect to mysql database using relevant credentials
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
-            statement = connection.createStatement();
-            results = statement.executeQuery("select * from adminusers");
-            
-            while(results.next()){
-                System.out.println("col 1 : " + results.getString(1));
-                System.out.println("col 2 : " + results.getString(2));
-                System.out.println("col 3 : " + results.getString(3));
-            }
-            System.out.println("Connected");
-            connection.close();
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
         } catch (SQLException ex) {
             System.out.println("Could not connect");
             System.out.println(ex.getMessage());
@@ -127,7 +118,7 @@ public class LoginPage extends javax.swing.JFrame {
         String username = txt_Username.getText();
         String password = txt_Password.getText();
 
-        if (username.equals("victor") && password.equals("password")) {
+        if (checkLogin(username, password)) {
             JOptionPane.showMessageDialog(this, "Login successful");
         } else {
             JOptionPane.showMessageDialog(this, "Login failed");
@@ -167,6 +158,33 @@ public class LoginPage extends javax.swing.JFrame {
                 new LoginPage().setVisible(true);
             }
         });
+    }
+
+    public boolean checkLogin(String username, String password) {
+        //Initialize variables to store data retrieved from database
+        String dbUsername = ""; 
+        String dbPassword = "";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery("select * from adminusers");
+            
+            while (results.next()) {
+                System.out.println("id : " + results.getString(1));
+                System.out.println("username : " + results.getString(2));
+                System.out.println("password : " + results.getString(3));
+                dbUsername = results.getString(2);
+                dbPassword = results.getString(3);
+            }
+            
+            connection.close();
+            System.out.println("Db connection closed");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (dbUsername.equals(username) && dbPassword.equals(password)){
+            return true;
+        } 
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
