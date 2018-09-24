@@ -126,8 +126,8 @@ public class LoginPage extends javax.swing.JFrame {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            this.dispose();
-            Dashboard dashboard = new Dashboard();
+            this.dispose(); //Remove current window
+            Dashboard dashboard = new Dashboard(); //redirect to dashboard window
             dashboard.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Login failed");
