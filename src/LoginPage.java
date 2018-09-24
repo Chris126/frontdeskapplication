@@ -117,10 +117,18 @@ public class LoginPage extends javax.swing.JFrame {
         //Get username and password from text fields in UI form
         String username = txt_Username.getText();
         String password = txt_Password.getText();
-        
+
         //Check if the provided credentials match those stored in the database
         if (checkLogin(username, password)) {
-            JOptionPane.showMessageDialog(this, "Login successful");
+//            JOptionPane.showMessageDialog(this, "Login successful");
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            this.dispose();
+            Dashboard dashboard = new Dashboard();
+            dashboard.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Login failed");
         }
@@ -163,12 +171,12 @@ public class LoginPage extends javax.swing.JFrame {
 
     public boolean checkLogin(String username, String password) {
         //Initialize variables to store data retrieved from database
-        String dbUsername = ""; 
+        String dbUsername = "";
         String dbPassword = "";
         try {
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("select * from adminusers");
-            
+
             while (results.next()) {
                 System.out.println("id : " + results.getString(1));
                 System.out.println("username : " + results.getString(2));
@@ -176,15 +184,14 @@ public class LoginPage extends javax.swing.JFrame {
                 dbUsername = results.getString(2);
                 dbPassword = results.getString(3);
             }
-            
-            connection.close();
+
             System.out.println("Db connection closed");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        if (dbUsername.equals(username) && dbPassword.equals(password)){
+        if (dbUsername.equals(username) && dbPassword.equals(password)) {
             return true;
-        } 
+        }
         return false;
     }
 
