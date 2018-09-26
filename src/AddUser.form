@@ -48,6 +48,7 @@
                               <Component id="lbl_lastname" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_firstname" min="-2" max="-2" attributes="0"/>
                               <Component id="lbl_dob" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_window_header" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -55,9 +56,10 @@
                       <Component id="jTextField1" min="-2" pref="76" max="-2" attributes="0"/>
                       <Component id="jTextField2" min="-2" pref="91" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lbl_window_header" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="185" max="32767" attributes="0"/>
+              <EmptySpace pref="75" max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +67,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="lbl_window_header" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_window_header" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_firstname" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -163,6 +168,11 @@
     <Component class="javax.swing.JTextField" name="jTextField4">
       <Properties>
         <Property name="text" type="java.lang.String" value="jTextField4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="WELCOME, USER"/>
       </Properties>
     </Component>
   </SubComponents>

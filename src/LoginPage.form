@@ -33,10 +33,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btn_Login" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btn_Login" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_Username" max="32767" attributes="0"/>
                           <Component id="txt_Password" max="32767" attributes="0"/>
                       </Group>

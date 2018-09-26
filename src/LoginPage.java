@@ -117,15 +117,16 @@ public class LoginPage extends javax.swing.JFrame {
         //Get username and password from text fields in UI form
         String username = txt_Username.getText();
         String password = txt_Password.getText();
-
+        int userId = checkLogin(username, password);
         //Check if the provided credentials match those stored in the database
-        if (checkLogin(username, password)) {
+        if (userId > 0) {
 //            JOptionPane.showMessageDialog(this, "Login successful");
             try {
                 connection.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+            User.getInstance(username, userId);
             this.dispose(); //Remove current window
             Dashboard dashboard = new Dashboard(); //redirect to dashboard window
             dashboard.setVisible(true);
@@ -138,7 +139,6 @@ public class LoginPage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -169,10 +169,11 @@ public class LoginPage extends javax.swing.JFrame {
         });
     }
 
-    public boolean checkLogin(String username, String password) {
+    public int checkLogin(String username, String password) {
         //Initialize variables to store data retrieved from database
         String dbUsername = "";
         String dbPassword = "";
+        int userId = 0;
         try {
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("select * from adminusers");
@@ -183,6 +184,7 @@ public class LoginPage extends javax.swing.JFrame {
                 System.out.println("password : " + results.getString(3));
                 dbUsername = results.getString(2);
                 dbPassword = results.getString(3);
+                userId = Integer.parseInt(results.getString(1));
             }
 
             System.out.println("Db connection closed");
@@ -190,9 +192,9 @@ public class LoginPage extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
         if (dbUsername.equals(username) && dbPassword.equals(password)) {
-            return true;
+            return userId;
         }
-        return false;
+        return 0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

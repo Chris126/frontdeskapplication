@@ -39,6 +39,7 @@ public class AddUser extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +69,8 @@ public class AddUser extends javax.swing.JFrame {
 
         jTextField4.setText("jTextField4");
 
+        jLabel1.setText("WELCOME, USER");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,18 +93,22 @@ public class AddUser extends javax.swing.JFrame {
                                 .addComponent(lbl_telephone)
                                 .addComponent(lbl_lastname)
                                 .addComponent(lbl_firstname)
-                                .addComponent(lbl_dob))))
+                                .addComponent(lbl_dob)
+                                .addComponent(lbl_window_header))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_window_header))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(lbl_window_header)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_window_header)
+                    .addComponent(jLabel1))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_firstname)
@@ -169,6 +176,7 @@ public class AddUser extends javax.swing.JFrame {
     private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_save;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
