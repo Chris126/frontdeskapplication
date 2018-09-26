@@ -38,9 +38,9 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_window_heading" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_userString" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,8 +52,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_window_heading" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_userString" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="209" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="185" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lbl_window_heading">
       <Properties>
         <Property name="text" type="java.lang.String" value="FRONT DESK APPLICATION DASHBOARD"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -105,7 +105,7 @@
         <Property name="text" type="java.lang.String" value="LOG OUT"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lbl_userString">
       <Properties>
         <Property name="text" type="java.lang.String" value="WELCOME USER"/>
       </Properties>

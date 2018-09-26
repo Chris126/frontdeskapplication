@@ -1,8 +1,8 @@
 
 public class User {
 
-    String username;
-    int userId;
+    static String username;
+    static int userId;
 
     //Private constructor to prevent access outside class
     private User(String username, int userId) {
