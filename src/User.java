@@ -1,15 +1,12 @@
 
 public class User {
-
     static String username;
     static int userId;
-
     //Private constructor to prevent access outside class
     private User(String username, int userId) {
         this.username = username;
         this.userId = userId;
     }
-
 //    private instance variable to contain singleton instance
     private static User instance;
 
@@ -21,20 +18,12 @@ public class User {
         }
         return instance;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    
+    public static boolean isLoggedIn() {
+        if (instance == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

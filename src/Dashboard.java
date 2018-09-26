@@ -6,7 +6,6 @@ import java.lang.reflect.Constructor;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author khanflex
@@ -118,23 +117,10 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_add_userActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
-        // TODO add your handling code here:
-        User instanceOne = User.getInstance("", 0);
-        User instanceTwo = null;
-        try {
-            Constructor[] constructors = User.class.getDeclaredConstructors();
-            for (Constructor constructor : constructors) {
-                //Destroy the session by destroying the singleton 
-                constructor.setAccessible(true);
-                instanceTwo = (User) constructor.newInstance();
-                break;
-            }
-            this.dispose();
-            LoginPage login = new LoginPage();
-            login.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.dispose();
+        LoginPage login = new LoginPage();
+        login.setVisible(true);
+
     }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**

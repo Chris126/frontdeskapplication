@@ -120,13 +120,18 @@ public class LoginPage extends javax.swing.JFrame {
         int userId = checkLogin(username, password);
         //Check if the provided credentials match those stored in the database
         if (userId > 0) {
-//            JOptionPane.showMessageDialog(this, "Login successful");
             try {
                 connection.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            User.getInstance(username, userId);
+            if (User.isLoggedIn()) {
+                User.username = username;
+                User.userId = userId;
+            } else {
+                User.getInstance(username, userId);
+            }
+            
             this.dispose(); //Remove current window
             Dashboard dashboard = new Dashboard(); //redirect to dashboard window
             dashboard.setVisible(true);
