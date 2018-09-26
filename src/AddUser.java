@@ -15,6 +15,7 @@ public class AddUser extends javax.swing.JFrame {
      */
     public AddUser() {
         initComponents();
+        lbl_userString.setText("WELCOME, " + User.username.toUpperCase());
     }
 
     /**
@@ -39,7 +40,7 @@ public class AddUser extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_userString = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +70,7 @@ public class AddUser extends javax.swing.JFrame {
 
         jTextField4.setText("jTextField4");
 
-        jLabel1.setText("WELCOME, USER");
+        lbl_userString.setText("WELCOME, USER");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,7 +100,7 @@ public class AddUser extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lbl_userString)
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -108,7 +109,7 @@ public class AddUser extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_window_header)
-                    .addComponent(jLabel1))
+                    .addComponent(lbl_userString))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_firstname)
@@ -176,7 +177,6 @@ public class AddUser extends javax.swing.JFrame {
     private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_save;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -185,6 +185,7 @@ public class AddUser extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_dob;
     private javax.swing.JLabel lbl_firstname;
     private javax.swing.JLabel lbl_telephone;
+    private javax.swing.JLabel lbl_userString;
     private javax.swing.JLabel lbl_window_header;
     // End of variables declaration//GEN-END:variables
 }
