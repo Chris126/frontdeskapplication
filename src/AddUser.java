@@ -19,7 +19,7 @@ public class AddUser extends javax.swing.JFrame {
     public AddUser() {
         initComponents();
         lbl_userString.setText("WELCOME, " + User.username.toUpperCase());
-         //Try and connect to mysql database using relevant credentials
+        //Try and connect to mysql database using relevant credentials
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
         } catch (SQLException ex) {
@@ -66,6 +66,11 @@ public class AddUser extends javax.swing.JFrame {
         lbl_Gender.setToolTipText("");
 
         btn_clear.setText("CLEAR");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
 
         btn_save.setText("SAVE USER");
         btn_save.addActionListener(new java.awt.event.ActionListener() {
@@ -189,30 +194,36 @@ public class AddUser extends javax.swing.JFrame {
             gender = radioBtn_Male.getText();
         } else {
             JOptionPane.showMessageDialog(this, "Select a gender");
+            return;
         }
 
         //Check for empty or invalid inputs
         if (StringUtils.isNullOrEmpty(fname)) {
             JOptionPane.showMessageDialog(this, "Enter a value for first name");
+            return;
         } else if (StringUtils.isNullOrEmpty(lname)) {
             JOptionPane.showMessageDialog(this, "Enter a value for last name");
+            return;
         } else if (StringUtils.isNullOrEmpty(telephone)) {
             JOptionPane.showMessageDialog(this, "Enter a value for telephone");
+            return;
         } else if (telephone.length() != 10) {
             JOptionPane.showMessageDialog(this, "Enter a valid 10 digit telephone number");
+            return;
         } else if (StringUtils.isNullOrEmpty(dob)) {
             JOptionPane.showMessageDialog(this, "Enter a value for date of birth");
+            return;
         }
 
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
+        format.setLenient(false);
         //check if the dob is valid 
         try {
             format.parse(dob);
             //if the dob and all other fields above check out, proceed to insert the user data into the app's database
-             Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("select * from adminusers");
-
+            System.out.println("No erros in data prov");
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Enter a valid date of birth in the correct format");
             Logger.getLogger(AddUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,6 +232,15 @@ public class AddUser extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_saveActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        //clear all fields
+        txt_fname.setText("");
+        txt_lname.setText("");
+        txt_telephone.setText("");
+        txt_dob.setText("");
+        btnGrp_Gender.clearSelection();
+    }//GEN-LAST:event_btn_clearActionPerformed
 
     /**
      * @param args the command line arguments
