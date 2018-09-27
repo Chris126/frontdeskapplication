@@ -1,5 +1,6 @@
 
 import java.lang.reflect.Constructor;
+import javax.swing.JFrame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -114,6 +115,7 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddUser adduser = new AddUser();
         adduser.setVisible(true);
+        adduser.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btn_add_userActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed

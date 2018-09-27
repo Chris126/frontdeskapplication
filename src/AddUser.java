@@ -2,6 +2,7 @@
 import com.mysql.jdbc.StringUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -85,7 +86,7 @@ public class AddUser extends javax.swing.JFrame {
 
         txt_telephone.setToolTipText("Enter your telephone number");
 
-        txt_dob.setToolTipText("Enter your date of birth in DD/MM/YYY");
+        txt_dob.setToolTipText("Enter your date of birth in YYY/MM/DD");
 
         lbl_userString.setText("WELCOME, USER");
 
@@ -215,15 +216,22 @@ public class AddUser extends javax.swing.JFrame {
             return;
         }
 
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         format.setLenient(false);
         //check if the dob is valid 
         try {
             format.parse(dob);
             //if the dob and all other fields above check out, proceed to insert the user data into the app's database
             Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery("select * from adminusers");
-            System.out.println("No erros in data prov");
+            String sql = "insert into normalusers (firstName, lastName, telephone, dob, gender) values (?,?,?,?,?)";
+            PreparedStatement prep = connection.prepareStatement(sql);
+            prep.setString(1, fname);
+            prep.setString(2, lname);
+            prep.setString(3, telephone);
+            prep.setString(4, dob);
+            prep.setString(5, gender);
+            prep.execute();
+            JOptionPane.showMessageDialog(this, "User saved successfully");
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Enter a valid date of birth in the correct format");
             Logger.getLogger(AddUser.class.getName()).log(Level.SEVERE, null, ex);
@@ -276,7 +284,7 @@ public class AddUser extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrp_Gender;
     private javax.swing.JButton btn_clear;
