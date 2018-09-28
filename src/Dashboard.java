@@ -215,14 +215,14 @@ public class Dashboard extends javax.swing.JFrame {
             }
             Statement statement2 = connection.createStatement();
             ResultSet results2 = statement.executeQuery(maleSqlCount);
-            while (results.next()) {
-                System.out.println("res 1 : " + results.getString(1));
-                maleCount = Integer.parseInt(results.getString(1));
+            while (results2.next()) {
+                System.out.println("res 2 : " + results2.getString(1));
+                maleCount = Integer.parseInt(results2.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println("Male count : " + maleCount + "Female Count : " + femaleCount);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add_user;
