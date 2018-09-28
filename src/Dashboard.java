@@ -9,13 +9,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-
 
 public class Dashboard extends javax.swing.JFrame {
 
     Connection connection;
+    static Dashboard instance;
 
     /**
      * Creates new form Dashboard
@@ -25,30 +27,12 @@ public class Dashboard extends javax.swing.JFrame {
         lbl_userString.setText("WELCOME, " + User.username.toUpperCase());
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/frontdeskapplication", "chris", "password");
-            Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery("select * from normalusers");
-
-            while (results.next()) {
-                System.out.println("id : " + results.getString(1));
-                System.out.println("fname : " + results.getString(2));
-                System.out.println("lname : " + results.getString(3));
-                System.out.println("lname : " + results.getString(4));
-                System.out.println("lname : " + results.getString(5));
-                System.out.println("lname : " + results.getString(6));
-
-                LocalDate now = LocalDate.now();
-                LocalDate dob = LocalDate.parse(results.getString(5), DateTimeFormatter.ISO_LOCAL_DATE);
-                long numYears = ChronoUnit.YEARS.between(dob, now);
-                System.out.println("diff : " + numYears);
-
-                DefaultTableModel model = (DefaultTableModel) userTable.getModel();
-                model.addRow(new Object[]{results.getString(2) + " " + results.getString(3), results.getString(6), results.getString(4), results.getString(5), numYears});
-            }
-
-            System.out.println("Try block success");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
+        populateTable();
+        createChart();
+        instance = this;
     }
 
     /**
@@ -187,6 +171,59 @@ public class Dashboard extends javax.swing.JFrame {
         });
     }
 
+    public void populateTable() {
+        try {
+            
+            Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery("select * from normalusers");
+            DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+            model.setRowCount(0);
+            while (results.next()) {
+                System.out.println("id : " + results.getString(1));
+                System.out.println("fname : " + results.getString(2));
+                System.out.println("lname : " + results.getString(3));
+                System.out.println("lname : " + results.getString(4));
+                System.out.println("lname : " + results.getString(5));
+                System.out.println("lname : " + results.getString(6));
+
+                LocalDate now = LocalDate.now();
+                LocalDate dob = LocalDate.parse(results.getString(5), DateTimeFormatter.ISO_LOCAL_DATE);
+                long numYears = ChronoUnit.YEARS.between(dob, now);
+                System.out.println("diff : " + numYears);
+
+                model.addRow(new Object[]{results.getString(2) + " " + results.getString(3), results.getString(6), results.getString(4), results.getString(5), numYears});
+            }
+
+            System.out.println("Try block success");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void createChart() {
+        String femaleSqlCount = "SELECT count(userId) as GenderCount, gender FROM `normalusers` where gender like \"female\"";
+        String maleSqlCount = "SELECT count(userId) as GenderCount, gender FROM `normalusers` where gender like \"male\"";
+        int femaleCount = 0;
+        int maleCount = 0;
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery(femaleSqlCount);
+            while (results.next()) {
+                System.out.println("res 1 : " + results.getString(1));
+                femaleCount = Integer.parseInt(results.getString(1));
+            }
+            Statement statement2 = connection.createStatement();
+            ResultSet results2 = statement.executeQuery(maleSqlCount);
+            while (results.next()) {
+                System.out.println("res 1 : " + results.getString(1));
+                maleCount = Integer.parseInt(results.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add_user;
     private javax.swing.JButton btn_logout;

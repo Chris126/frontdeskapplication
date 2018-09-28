@@ -232,6 +232,7 @@ public class AddUser extends javax.swing.JFrame {
             prep.setString(5, gender);
             prep.execute();
             JOptionPane.showMessageDialog(this, "User saved successfully");
+            Dashboard.instance.populateTable();
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Enter a valid date of birth in the correct format");
             Logger.getLogger(AddUser.class.getName()).log(Level.SEVERE, null, ex);
