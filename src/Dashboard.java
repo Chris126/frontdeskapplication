@@ -5,19 +5,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author khanflex
- */
+
 public class Dashboard extends javax.swing.JFrame {
+
     Connection connection;
+
     /**
      * Creates new form Dashboard
      */
@@ -36,6 +35,14 @@ public class Dashboard extends javax.swing.JFrame {
                 System.out.println("lname : " + results.getString(4));
                 System.out.println("lname : " + results.getString(5));
                 System.out.println("lname : " + results.getString(6));
+
+                LocalDate now = LocalDate.now();
+                LocalDate dob = LocalDate.parse(results.getString(5), DateTimeFormatter.ISO_LOCAL_DATE);
+                long numYears = ChronoUnit.YEARS.between(dob, now);
+                System.out.println("diff : " + numYears);
+
+                DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+                model.addRow(new Object[]{results.getString(2) + " " + results.getString(3), results.getString(6), results.getString(4), results.getString(5), numYears});
             }
 
             System.out.println("Try block success");
@@ -55,7 +62,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         lbl_window_heading = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        userTable = new javax.swing.JTable();
         btn_add_user = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         lbl_userString = new javax.swing.JLabel();
@@ -65,7 +72,7 @@ public class Dashboard extends javax.swing.JFrame {
         lbl_window_heading.setText("FRONT DESK APPLICATION DASHBOARD");
         lbl_window_heading.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -73,7 +80,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Name", "Gender", "Telephone", "Date of Birth", "Age"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(userTable);
 
         btn_add_user.setText("ADD USER");
         btn_add_user.addActionListener(new java.awt.event.ActionListener() {
@@ -184,8 +191,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton btn_add_user;
     private javax.swing.JButton btn_logout;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_userString;
     private javax.swing.JLabel lbl_window_heading;
+    private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
