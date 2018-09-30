@@ -1,11 +1,9 @@
 
-import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class Dashboard extends javax.swing.JFrame {
 
@@ -31,7 +34,7 @@ public class Dashboard extends javax.swing.JFrame {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
         populateTable();
-        createChart();
+//        createChart();
         instance = this;
     }
 
@@ -50,6 +53,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn_add_user = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         lbl_userString = new javax.swing.JLabel();
+        btn_Chart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +86,14 @@ public class Dashboard extends javax.swing.JFrame {
 
         lbl_userString.setText("WELCOME USER");
 
+        btn_Chart.setText("SHOW PIE CHART");
+        btn_Chart.setToolTipText("");
+        btn_Chart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ChartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,17 +102,19 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_window_heading)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_userString))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btn_add_user)
                                 .addGap(18, 18, 18)
-                                .addComponent(btn_logout)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_window_heading)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_userString)))
+                                .addComponent(btn_logout)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_Chart)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -110,12 +124,13 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_window_heading)
                     .addComponent(lbl_userString))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_add_user)
-                    .addComponent(btn_logout))
+                    .addComponent(btn_logout)
+                    .addComponent(btn_Chart))
                 .addContainerGap())
         );
 
@@ -135,6 +150,10 @@ public class Dashboard extends javax.swing.JFrame {
         login.setVisible(true);
 
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_ChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ChartActionPerformed
+        createChart();
+    }//GEN-LAST:event_btn_ChartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,7 +192,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     public void populateTable() {
         try {
-            
+
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("select * from normalusers");
             DefaultTableModel model = (DefaultTableModel) userTable.getModel();
@@ -201,11 +220,14 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     public void createChart() {
+//        Sql code for fetching the male and female counts from the database
         String femaleSqlCount = "SELECT count(userId) as GenderCount, gender FROM `normalusers` where gender like \"female\"";
         String maleSqlCount = "SELECT count(userId) as GenderCount, gender FROM `normalusers` where gender like \"male\"";
+//        Initialize the countss to zero
         int femaleCount = 0;
         int maleCount = 0;
-        
+
+//        Execute the queries created above in order to get the actual data
         try {
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(femaleSqlCount);
@@ -223,8 +245,24 @@ public class Dashboard extends javax.swing.JFrame {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Male count : " + maleCount + "Female Count : " + femaleCount);
+
+//        create pie chart with gender counts using jfreechart library
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Male", new Integer(maleCount));
+        dataset.setValue("Female", new Integer(femaleCount));
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Chart Showing Gender Distribution", // chart title 
+                dataset, // data    
+                true, // include legend   
+                true,
+                false);
+//        PiePlot P = (PiePlot) chart.getPlot();
+        ChartFrame frame = new ChartFrame("Pie chart", chart);
+        frame.setVisible(true);
+        frame.setSize(450, 500);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Chart;
     private javax.swing.JButton btn_add_user;
     private javax.swing.JButton btn_logout;
     private javax.swing.JScrollPane jScrollPane1;
